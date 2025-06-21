@@ -46,4 +46,4 @@ A simple tool to help you track your hackathon projects, remember important data
 - Use checkboxes to visualize progress.
 - Keep all important links and resources in the notes section.
 
-Happy Hacking!
+### Happy Hacking

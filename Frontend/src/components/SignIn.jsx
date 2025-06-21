@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export default function SignIn() {
+export default function SignIn({setLoggedIn, setUsername}) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
@@ -23,9 +23,13 @@ export default function SignIn() {
       const data = await response.json()
 
       if (response.ok) {
+        setLoggedIn(true); // Assuming you have a state to manage login status
+        setEmail(email); // Assuming the response contains user data
+        setUsername(data.user.username); // ✅ correctly set username
+
+        console.log(data.user);
         alert('Login successful!')
-        // localStorage.setItem('user', JSON.stringify(data))
-        // navigate('/dashboard') // Optional redirect
+        navigate('/dashboard')
       } else {
         alert(data.message || 'Login failed')
       }
@@ -68,7 +72,7 @@ export default function SignIn() {
           </button>
         </form>
         <p className="text-center text-sm text-gray-600 dark:text-gray-400">
-          Don't have an account?{' '}
+          Don&apos;t have an account?{' '}
           <a href="/signup" className="text-indigo-600 dark:text-indigo-400 hover:underline">
             Sign up
           </a>
