@@ -1,24 +1,27 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { Dialog, DialogPanel } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import { Link } from 'react-router-dom'
+import { useState } from "react";
+import { Dialog, DialogPanel } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
 
 const navigation = [
-  { name: 'Product', href: '#' },
-  { name: 'Features', href: '#' },
-  { name: 'Marketplace', href: '#' },
-  { name: 'Company', href: '#' },
-]
+  { name: "Product", href: "#" },
+  { name: "Features", href: "#" },
+  { name: "Marketplace", href: "#" },
+  { name: "Company", href: "#" },
+];
 
 export default function LandingPage() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <div className="bg-gray-900 text-white min-h-screen">
       <header className="absolute inset-x-0 top-0 z-50">
-        <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+        <nav
+          className="flex items-center justify-between p-6 lg:px-8"
+          aria-label="Global"
+        >
           <div className="flex lg:flex-1">
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
@@ -58,7 +61,12 @@ export default function LandingPage() {
             </Link>
           </div>
         </nav>
-        <Dialog as="div" open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
+        <Dialog
+          as="div"
+          open={mobileMenuOpen}
+          onClose={setMobileMenuOpen}
+          className="lg:hidden"
+        >
           <div className="fixed inset-0 z-50 bg-black bg-opacity-50" />
           <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full max-w-sm bg-gray-800 p-6 overflow-y-auto">
             <div className="flex items-center justify-between">
@@ -104,10 +112,15 @@ export default function LandingPage() {
       <main className="relative isolate px-6 pt-32 pb-20 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <h1 className="text-5xl font-bold tracking-tight sm:text-6xl text-white">
-            Empower your online business with better data
+            AI
+            <br />
+            <br />
+            Hackathon Tracker
+            <br />
+            <br />
           </h1>
           <p className="mt-6 text-lg leading-8 text-gray-300">
-            Streamline insights, grow faster, and make smarter decisions with our intelligent tools.
+            AI Hackathon Tracker is your one-stop platform to discover, track, and manage AI hackathons worldwide. Whether you're a participant, organizer, or enthusiast, our tool helps you stay updated on upcoming events, deadlines, and results. Join a vibrant community, streamline your hackathon journey, and never miss an opportunity to innovate with AI!
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
             <Link
@@ -116,12 +129,15 @@ export default function LandingPage() {
             >
               Get started
             </Link>
-            <a href="#" className="text-sm font-semibold text-white hover:text-indigo-400">
+            <a
+              href="#"
+              className="text-sm font-semibold text-white hover:text-indigo-400"
+            >
               Learn more <span aria-hidden="true">→</span>
             </a>
           </div>
         </div>
       </main>
     </div>
-  )
+  );
 }

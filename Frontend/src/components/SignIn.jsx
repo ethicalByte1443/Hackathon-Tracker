@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export default function SignIn({setLoggedIn, setUsername}) {
+export default function SignIn({setLoggedIn, setUserEmail, setUsername}) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
@@ -26,7 +26,7 @@ export default function SignIn({setLoggedIn, setUsername}) {
         setLoggedIn(true); // Assuming you have a state to manage login status
         setEmail(email); // Assuming the response contains user data
         setUsername(data.user.username); // ✅ correctly set username
-
+        setUserEmail(email); // Set user email for future use
         console.log(data.user);
         alert('Login successful!')
         navigate('/dashboard')

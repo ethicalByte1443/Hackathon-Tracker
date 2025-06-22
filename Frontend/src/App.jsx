@@ -8,18 +8,18 @@ import Dashboard from './components/Dashboard';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false); // Replace with proper auth logic later
-  const [email, setEmail] = useState(null); // Replace with proper user state management
+  const [userEmail, setUserEmail] = useState(null); // Replace with proper user state management
   const [username, setUsername] = useState(null); // Optional: Store user name if needed
   return (
     <Router>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/signin" element={<SignIn setLoggedIn={setLoggedIn} setEmail={setEmail} setUsername={setUsername}/>} />
+        <Route path="/signin" element={<SignIn setLoggedIn={setLoggedIn} setUserEmail={setUserEmail} setUsername={setUsername}/>} />
         <Route path="/signup" element={<SignUp />} />
         <Route
           path="/dashboard"
           element={
-            loggedIn ? <Dashboard email={email} username={username}/> : <Navigate to="/signin" replace />
+            loggedIn ? <Dashboard userEmail={userEmail} username={username}/> : <Navigate to="/signin" replace />
           }
         />
       </Routes>
