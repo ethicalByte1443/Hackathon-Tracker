@@ -21,8 +21,8 @@ const hackathonSchema = new mongoose.Schema({
   project_link_git: String,
   current_phase: {
     type: String,
-    enum: ['Ideation', 'Development', 'Testing', 'Submitted', 'Completed'],
-    default: 'Ideation',
+    enum: ['Planning', 'Analysis', 'Design', 'Implementation', 'Testing', 'Maintenance', 'Completed'],
+    default: 'Planning'
   },
   team_member_number: {
     type: Number,
