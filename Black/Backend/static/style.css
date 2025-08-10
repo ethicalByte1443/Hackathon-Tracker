@@ -1,0 +1,91 @@
+body {
+            background: linear-gradient(135deg, #232526 0%, #414345 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: rgba(34, 34, 34, 0.95);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            padding: 32px 24px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 24px;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        input, textarea {
+            background: #2c2c2c;
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            color: #fff;
+            font-size: 1rem;
+            resize: none;
+            transition: background 0.2s;
+        }
+        input:focus, textarea:focus {
+            background: #414345;
+            outline: none;
+        }
+        button {
+            background: linear-gradient(90deg, #ff512f 0%, #dd2476 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+        button:hover {
+            background: linear-gradient(90deg, #dd2476 0%, #ff512f 100%);
+            transform: scale(1.05);
+        }
+        .notes-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .note {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 18px 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+            position: relative;
+        }
+        .note-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #ff512f;
+        }
+        .note-content {
+            font-size: 1rem;
+            color: #e0e0e0;
+        }
+        .note-date {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+        @media (max-width: 700px) {
+            .container {
+                padding: 18px 8px;
+            }
+        }
