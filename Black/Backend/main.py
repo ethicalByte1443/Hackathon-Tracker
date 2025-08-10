@@ -4,9 +4,15 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates as j2
 from pydantic import BaseModel
 from pymongo import MongoClient
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+MONGODB_URL = os.getenv("MONGODB_URL")
 
 
-client = MongoClient("mongodb+srv://AseeM:<xtO4qVqoTiX5KoGI>@cluster0.ssq3x.mongodb.net/notes")
+client = MongoClient("")
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = j2(directory="templates")
