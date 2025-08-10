@@ -10,16 +10,30 @@ import os
 load_dotenv()
 
 MONGODB_URL = os.getenv("MONGODB_URL")
+db_connected = False
 
 
-client = MongoClient("")
+try:
+    client = MongoClient(MONGODB_URL)
+    client.admin.command("ping")
+    db_connected = True
+    print("DATABASE CONNECTED SUCCESSFULLY")
+except Exception as e:
+    db_connected = False
+    print("Database not connect properply check the URL", e)
+
+
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = j2(directory="templates")
 
 @app.get("/", response_class=HTMLResponse)
 async def root(request : Request):
-    return templates.TemplateResponse("index.html", {"request" : request})
+    if db_connected:
+        return templates.TemplateResponse("index.html", {"request" : request})
+    else:
+        return templates.TemplateResponse("error.html", {"request": request})
+    
 
 
 
