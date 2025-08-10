@@ -20,7 +20,7 @@ try:
     print("DATABASE CONNECTED SUCCESSFULLY")
 except Exception as e:
     db_connected = False
-    print("Database not connect properply check the URL", e)
+    print("Database not connect properply check the URL -->", e)
 
 
 app = FastAPI()
