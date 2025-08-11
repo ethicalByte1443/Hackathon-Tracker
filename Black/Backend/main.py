@@ -6,6 +6,8 @@ from pydantic import BaseModel
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import os
+from bson import ObjectId
+from datetime import datetime
 
 load_dotenv()
 
@@ -17,6 +19,8 @@ try:
     client = MongoClient(MONGODB_URL)
     client.admin.command("ping")
     db_connected = True
+    db = client["notes_db"]  # Database name
+    notes_collection = db["notes"]  # Collection name
     print("DATABASE CONNECTED SUCCESSFULLY")
 except Exception as e:
     db_connected = False
@@ -34,7 +38,15 @@ async def root(request : Request):
     else:
         return templates.TemplateResponse("error.html", {"request": request})
     
-
+@app.get("/get/notes")
+async def get_notes():
+    try:
+        notes = list(notes_collection.find().sort("time", -1))  # newest first
+        for note in notes:
+            note["_id"] = str(note["_id"])  # convert ObjectId to string
+        return {"notes": notes}
+    except Exception as e:
+        return {"error": str(e)}
 
 
 class Note(BaseModel):
@@ -45,10 +57,25 @@ class Note(BaseModel):
 
 @app.post("/submit/notes")
 async def submit_notes(note: Note):
-    # Here you can save note to a database (currently just printing)
-    print(f"📌 New Note: {note.title} - {note.content}")
+    if not db_connected:
+        return {"message": "Database connection failed", "data": None}
 
-    return {
-        "message": "Note added successfully",
-        "data": note.dict()
+    note_data = {
+        "_id": str(ObjectId()),  # custom string ID
+        "title": note.title,
+        "content": note.content,
+        "time": datetime.utcnow().isoformat()
     }
+
+    try:
+        result = notes_collection.insert_one(note_data)
+        return {
+            "message": "Note added successfully",
+            "inserted_id": str(result.inserted_id),
+            "data": note_data
+        }
+    except Exception as e:
+        return {
+            "message": "Note adding failed",
+            "error": str(e)
+        }

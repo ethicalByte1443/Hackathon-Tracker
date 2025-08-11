@@ -118,6 +118,35 @@
       </div>
     </div>
     <script>
+      async function loadNotes() {
+        try {
+          const res = await fetch("http://127.0.0.1:8000/get/notes");
+          const data = await res.json();
+
+          const notesList = document.getElementById("notesList");
+          notesList.innerHTML = ""; // clear old
+
+          data.notes.forEach((note) => {
+            const noteDiv = document.createElement("div");
+            noteDiv.classList.add("note");
+
+            noteDiv.innerHTML = `
+          <div class="note-title">${note.title}</div>
+          <div class="note-content">${note.content}</div>
+          <div class="note-date">${new Date(note.time).toLocaleString()}</div>
+        `;
+
+            notesList.appendChild(noteDiv);
+          });
+        } catch (error) {
+          console.error("Error loading notes:", error);
+        }
+      }
+
+      // Load notes on page load
+      document.addEventListener("DOMContentLoaded", loadNotes);
+
+      // Handle form submit
       document
         .getElementById("noteForm")
         .addEventListener("submit", async function (e) {
@@ -135,26 +164,13 @@
               body: JSON.stringify({ title, content }),
             });
 
+            if (!response.ok) throw new Error(`Error: ${response.status}`);
 
-            if (!response.ok) {
-              throw new Error(`Error: ${response.status}`);
-            }
-
-            const data = await response.json();
-
-            console.log(response)
-
+            await response.json();
             alert("✅ Note added successfully!");
-
-            // Show note on page without refreshing
-            const notesList = document.getElementById("notesList");
-            const noteDiv = document.createElement("div");
-            noteDiv.classList.add("note");
-            noteDiv.innerHTML = `<h3>${title}</h3><p>${content}</p>`;
-            notesList.appendChild(noteDiv);
-
-            // Reset form
             document.getElementById("noteForm").reset();
+
+            loadNotes(); // refresh notes list
           } catch (error) {
             console.error("Error submitting note:", error);
             alert("❌ Failed to add note. Check console for details.");
